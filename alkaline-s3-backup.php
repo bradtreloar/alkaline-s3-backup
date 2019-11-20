@@ -34,7 +34,7 @@ else {
   exit(1);
 }
 
-$dotenv = Dotenv::create("$drupalRoot/..");
+$dotenv = new Dotenv("$drupalRoot/..");
 $dotenv->load();
 
 $archiver = new ArchiveBuilder($drupalRoot, $tmp);
