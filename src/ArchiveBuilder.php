@@ -67,7 +67,7 @@ class ArchiveBuilder {
     $db = $databases['default']['default'];
 
     // Dump the database to file.
-    $data_tmp_dir = $this->tmp . "drupal/$site/data";
+    $data_tmp_dir = $this->tmp . "drupal/data/$site";
     if (!is_dir($data_tmp_dir)) {
       mkdir($data_tmp_dir, 0755, TRUE);
     }
