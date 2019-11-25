@@ -45,7 +45,7 @@ else {
 // Get region from AWS config.
 $aws_config_file = "$home/.aws/config";
 if (file_exists($aws_config_file)) {
-  $aws_config = parse_ini_file($aws_config_file);
+  $aws_config = parse_ini_file($aws_config_file, TRUE);
   $region = $aws_config['default']['region'];
 }
 else {
