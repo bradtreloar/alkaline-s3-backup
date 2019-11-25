@@ -16,8 +16,7 @@
     "php": ">=7.1",
     "webmozart/path-util": "^2.3",
     "webflo/drupal-finder": "^1.0",
-    "aws/aws-sdk-php": "^3.117",
-    "vlucas/phpdotenv": "^2.4"
+    "aws/aws-sdk-php": "^3.117"
   },
   "autoload": {
     "psr-4": {

@@ -2,7 +2,6 @@
 
 use Alkaline\ArchiveBuilder;
 use Aws\S3\S3Client;
-use Dotenv\Dotenv;
 use DrupalFinder\DrupalFinder;
 use Webmozart\PathUtil\Path;
 
@@ -33,9 +32,13 @@ else {
   throw new \Exception("Unable to locate Drupal root.");
 }
 
-$dotenv = new Dotenv("$drupalRoot/..");
-$dotenv->load();
-$bucket = getenv("ALKALINE_S3_BACKUP_BUCKET");
+$aws_config = "$home/.aws/alkaline-s3-backup";
+if (file_exists($aws_config)) {
+  $bucket = parse_ini_file($aws_config)['bucket'];
+}
+else {
+  throw new \Exception("Unable to locate ~/.aws/alkaline-s3-backup.");
+}
 
 $archiver = new ArchiveBuilder($drupalRoot, $tmp);
 $archive_filepath = $archiver->buildArchive();
