@@ -2,7 +2,7 @@
 
 namespace Alkaline;
 
-$ignored_tables = [
+$ignored_table_names = [
  "cache_bootstrap",
  "cache_config",
  "cache_container",
@@ -85,6 +85,12 @@ class ArchiveBuilder {
     $site_path = "";
     include $settings_file;
     $db = $databases['default']['default'];
+
+    // Prepend database name to table names.
+    $ignored_tables = [];
+    foreach ($ignored_table_names as $table_name) {
+      $ignored_tables[] = "{$db['database']}.{$table_name}";
+    }
 
     // Dump the database to file.
     $data_tmp_dir = $this->tmp . "drupal/data/$site";
