@@ -2,30 +2,33 @@
 
 namespace Alkaline;
 
-$ignored_table_names = [
- "cache_bootstrap",
- "cache_config",
- "cache_container",
- "cache_data",
- "cache_default",
- "cache_discovery",
- "cache_discovery_migration",
- "cache_dynamic_page_cache",
- "cache_entity",
- "cache_mailchimp",
- "cache_menu",
- "cache_migrate",
- "cache_page",
- "cache_render",
- "cache_rules",
- "cache_toolbar",
- "cachetags",
-];
-
 /**
  * Handles backup archive creation.
  */
 class ArchiveBuilder {
+
+  /**
+   * List of ignored database table.
+   */
+  static protected $ignored_tables = [
+    "cache_bootstrap",
+    "cache_config",
+    "cache_container",
+    "cache_data",
+    "cache_default",
+    "cache_discovery",
+    "cache_discovery_migration",
+    "cache_dynamic_page_cache",
+    "cache_entity",
+    "cache_mailchimp",
+    "cache_menu",
+    "cache_migrate",
+    "cache_page",
+    "cache_render",
+    "cache_rules",
+    "cache_toolbar",
+    "cachetags",
+  ];
 
   /**
    * The drupal site's root.
@@ -88,8 +91,8 @@ class ArchiveBuilder {
 
     // Prepend database name to table names.
     $ignored_tables = [];
-    foreach ($ignored_table_names as $table_name) {
-      $ignored_tables[] = "{$db['database']}.{$table_name}";
+    foreach (static::$ignored_tables as $table) {
+      $ignored_tables[] = "{$db['database']}.{$table}";
     }
 
     // Dump the database to file.
