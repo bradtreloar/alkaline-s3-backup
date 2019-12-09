@@ -2,6 +2,26 @@
 
 namespace Alkaline;
 
+$ignored_tables = [
+ "cache_bootstrap",
+ "cache_config",
+ "cache_container",
+ "cache_data",
+ "cache_default",
+ "cache_discovery",
+ "cache_discovery_migration",
+ "cache_dynamic_page_cache",
+ "cache_entity",
+ "cache_mailchimp",
+ "cache_menu",
+ "cache_migrate",
+ "cache_page",
+ "cache_render",
+ "cache_rules",
+ "cache_toolbar",
+ "cachetags",
+];
+
 /**
  * Handles backup archive creation.
  */
@@ -71,8 +91,9 @@ class ArchiveBuilder {
     if (!is_dir($data_tmp_dir)) {
       mkdir($data_tmp_dir, 0755, TRUE);
     }
+    $ignored_tables_list = '{'.implode(",", $ignored_tables).'}';
     putenv("MYSQL_PWD=${db['password']}");
-    $command = "mysqldump --user='{$db['username']}' '{$db['database']}'";
+    $command = "mysqldump --user='{$db['username']}' --ignore-table=$ignored_tables_list '{$db['database']}'";
     exec("$command > '$data_tmp_dir/drupal.sql'");
   }
 
